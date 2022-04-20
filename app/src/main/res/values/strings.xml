@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">project-my-app</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="home_fragment">Home</string>
+    <string name="favorite_fragment">Favorite</string>
+    <string name="notification_fragment">Notification</string>
 </resources>
