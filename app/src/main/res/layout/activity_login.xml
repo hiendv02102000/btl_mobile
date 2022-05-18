@@ -10,7 +10,7 @@
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@mipmap/background"
+        android:background="@mipmap/loginimg"
         android:scaleType="fitCenter"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHeight_percent="0.40"
