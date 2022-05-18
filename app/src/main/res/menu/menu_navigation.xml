@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mHome"
+        android:title="Danh sách"
+        android:icon="@drawable/ic_list"
+        />
+    <item
+        android:id="@+id/mInfo"
+        android:title="Thông tin"
+        android:icon="@drawable/ic_info"
+        />
+    <item
+        android:id="@+id/mSearch"
+        android:title="Thống kê"
+        android:icon="@drawable/ic_statistic"
+        />
+</menu>

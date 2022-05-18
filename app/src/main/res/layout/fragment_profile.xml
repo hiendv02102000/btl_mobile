@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.ProfileFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center|top"
+    android:background="@color/primary_color">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avater_img"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/default_avt"/>
+    <TextView
+        android:id="@+id/user_full_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên người dùng"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/user_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="thienhavocau@gmail.com"
+        android:textColor="@color/white"
+        android:textStyle="italic"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <Button
+            android:id="@+id/change_profile_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sửa thông tin"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_custom"
+            android:layout_margin="20dp"/>
+        <Button
+            android:id="@+id/change_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ĐỔi Mật khẩu"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_custom"
+            android:layout_margin="20dp"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đăng xuất"
+        app:backgroundTint="@null"
+        android:background="@drawable/btn_custom"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
