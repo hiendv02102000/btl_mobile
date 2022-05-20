@@ -9,16 +9,20 @@
     android:gravity="center|top"
     tools:context=".fragment.MusicListFragment">
     <androidx.appcompat.widget.SearchView
+        android:id="@+id/song_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/purple_200"/>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </ScrollView>
+            android:layout_height="wrap_content"
+            android:id="@+id/song_list_recycle"/>
+    <ProgressBar
+        android:id="@+id/load_next"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="gone"/>
 
 
 </LinearLayout>

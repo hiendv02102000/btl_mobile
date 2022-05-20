@@ -48,16 +48,56 @@ public class ClientQuery {
                 "    }\n";
     }
     public static String getMusicList(Song music, int pageNum, int pageSize){
+        String title = "";
+        String singer = "";
+        if(music !=null){
+            if (music.getTitle()!=null){
+                title = music.getTitle();
+            }
+            if (music.getSinger()!=null){
+                singer = music.getSinger();
+            }
+        }
+
+        String songArg = "                song:{\n" +
+                "                    title :\""+title+"\"\n" +
+                "                    singer:\""+singer+"\"\n" +
+                "                }\n" ;
+        String pageArg =  "                page:{\n" +
+                "                    page_num:"+pageNum+"\n" +
+                "                    page_size:"+pageSize+"\n" +
+                "                }\n" ;
         return "query{\n" +
                 "        get_song_list(\n" +
-                "                song:{\n" +
-                "                    title :\"\"\n" +
-                "                    singer:\"c\"\n" +
-                "                }\n" +
-                "                page:{\n" +
-                "                    page_num:1\n" +
-                "                    page_size:100\n" +
-                "                }\n" +
+                    songArg+
+                    pageArg+
+                "            )\n" +
+                "         {\n" +
+                "             songs {\n" +
+                "                    id\n" +
+                "                    title\n" +
+                "                    content_url\n" +
+                "                    image_url\n" +
+                "                    decription\n" +
+                "                    created_at\n" +
+                "                    singer\n" +
+                "                    view\n" +
+                "             }\n" +
+                "        } \n" +
+                "    }\n";
+    }
+    public static String getMusicListOfUser(User user){
+        String songArg = "                song:{\n" +
+                "                    user_id :"+user.getId()+"\n" +
+                "                }\n" ;
+        String pageArg =  "                page:{\n" +
+                "                    page_num:"+1+"\n" +
+                "                    page_size:"+100+"\n" +
+                "                }\n" ;
+        return "query{\n" +
+                "        get_song_list(\n" +
+                songArg+
+                pageArg+
                 "            )\n" +
                 "         {\n" +
                 "             songs {\n" +

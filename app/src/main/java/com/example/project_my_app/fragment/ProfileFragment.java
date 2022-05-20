@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
@@ -19,13 +21,20 @@ import android.widget.TextView;
 
 import com.example.project_my_app.ModifyProfileActivity;
 import com.example.project_my_app.R;
+import com.example.project_my_app.adapter.MusicListAdapter;
 import com.example.project_my_app.api.APIInterface;
 import com.example.project_my_app.api.Request;
 import com.example.project_my_app.api.ResponseAPI;
 import com.example.project_my_app.graphql.ClientQuery;
+import com.example.project_my_app.model.Song;
 import com.example.project_my_app.model.User;
 import com.example.project_my_app.utils.ConverObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +49,9 @@ public class ProfileFragment extends Fragment {
     private Button logoutBtn;
     private Button mofifyProfileBtn;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private Map<Integer, Song> data;
+    private MusicListAdapter musicListAdapter;
+    private RecyclerView songListRecycle;
     public ProfileFragment(User user) {
         this.user = user;
     }
@@ -64,6 +76,13 @@ public class ProfileFragment extends Fragment {
         logoutBtn = view.findViewById(R.id.logout_btn);
         mofifyProfileBtn = view.findViewById(R.id.modify_profile_btn);
         swipeRefreshLayout = view.findViewById(R.id.refresh_profile_layout);
+
+        data = new HashMap<>();
+        musicListAdapter = new MusicListAdapter(data);
+        songListRecycle = view.findViewById(R.id.profile_song_list);
+        songListRecycle.setLayoutManager(new LinearLayoutManager(getActivity()));
+        songListRecycle.setAdapter(musicListAdapter);
+
         initData();
         setUpButton();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -96,14 +115,17 @@ public class ProfileFragment extends Fragment {
 
                           try {
                               user = (User)userProfile.clone();
+
                           }catch (Exception ex){
 
                           }
                           user.setToken(token);
+                          getSongListApi();
                           updateProfileWithData();
                         }else {
                             //Log.d("AOTHAT",res.toString());
                         }
+
                     }
                     @Override
                     public void onFailure(Call<ResponseAPI> call, Throwable t) {
@@ -140,31 +162,30 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case ProfileFragment.MODIFY_PROFILE_CODE:{
-
-                if (resultCode== Activity.RESULT_OK){
-                    Log.d("TAG", "onActivityResult: "+"OK");
-                    if( data.getStringExtra("new_token")!=null){
-                        user.setToken(data.getStringExtra("new_token"));
-
+    private synchronized void getSongListApi() {
+        APIInterface.retrofit.clientQueryAPI(new Request(ClientQuery.getMusicListOfUser(user)),"Bearer "+this.user.getToken())
+                .enqueue(new Callback<ResponseAPI>() {
+                    @Override
+                    public void onResponse(Call<ResponseAPI> call, retrofit2.Response<ResponseAPI> response) {
+                        ResponseAPI res = response.body();
+                        Log.d("TAG", "onResponse: "+res);
+                        if(res != null && res.getStatus()==200){
+                            JsonArray jsonArray = res.getResult().getAsJsonObject("get_song_list").getAsJsonArray("songs");
+                            for(JsonElement jsonElement : jsonArray){
+                                Song songElement = (Song)ConverObject.converJsontoObject(jsonElement.getAsJsonObject(),Song.class);
+                                data.put(songElement.getId(),songElement);
+                            }
+                            musicListAdapter.notifyDataChanged();
+                        }else {
+                        }
                     }
-                    if(data.getSerializableExtra("new_user")!=null){
-                            User newU = (User) data.getSerializableExtra("new_user");
-                            user.setLastName(newU.getLastName());
-                            user.setFirstName(newU.getFirstName());
-                            user.setAvatarUrl(newU.getAvatarUrl());
-                            updateProfileWithData();
+                    @Override
+                    public void onFailure(Call<ResponseAPI> call, Throwable t) {
+                        call.cancel();
                     }
-                }
 
-                break;
-            }
-        }
-
+                });
     }
+
+
 }
