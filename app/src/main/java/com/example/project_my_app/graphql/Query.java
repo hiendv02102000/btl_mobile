@@ -27,6 +27,7 @@ public class Query {
                 "                    password:\""+user.getPassword()+"\"\n" +
                 "                    first_name:\""+user.getFirstName()+"\"\n" +
                 "                    last_name:\""+user.getLastName()+"\"\n" +
+                "                    email:\""+user.getEmail()+"\"\n" +
                 "                })\n";
         return "mutation{\n" +
                 "        register_user(\n" +

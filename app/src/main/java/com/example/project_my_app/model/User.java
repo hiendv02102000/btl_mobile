@@ -6,7 +6,9 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.List;
 
-public class User extends BaseModel implements Serializable {
+public class User extends BaseModel implements Serializable, Cloneable{
+    @SerializedName("id")
+    private int id;
     @SerializedName("username")
     private  String username;
     @SerializedName("password")
@@ -21,8 +23,8 @@ public class User extends BaseModel implements Serializable {
     private String lastName;
     @SerializedName("first_name")
     private String firstName;
-    @SerializedName("id")
-    private int id;
+    @SerializedName("avatar_url")
+    private String avatarUrl;
     @SerializedName("token_expired_at")
     private String tokenExpiredAt;
     public User(String username, String password) {
@@ -31,6 +33,14 @@ public class User extends BaseModel implements Serializable {
     }
 
     public User() {
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getUsername() {
@@ -103,5 +113,21 @@ public class User extends BaseModel implements Serializable {
 
     public void setTokenExpiredAt(String tokenExpiredAt) {
         this.tokenExpiredAt = tokenExpiredAt;
+    }
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", token='" + token + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                '}';
     }
 }

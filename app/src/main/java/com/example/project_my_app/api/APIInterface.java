@@ -26,5 +26,5 @@ public interface APIInterface {
     @POST("app/client/query")
     public Call<ResponseAPI> clientQueryAPIWithFile(@Part("query")RequestBody query,
                                                     @Header("Authorization") String authHeader,
-                                                    @Part MultipartBody.Part file);
+                                                    @Part MultipartBody.Part ...file);
 }

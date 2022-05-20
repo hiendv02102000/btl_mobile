@@ -8,11 +8,11 @@
     <item
         android:id="@+id/mInfo"
         android:title="Thông tin"
-        android:icon="@drawable/ic_info"
+        android:icon="@drawable/ic_baseline_history_24"
         />
     <item
         android:id="@+id/mSearch"
-        android:title="Thống kê"
+        android:title="Người dùng"
         android:icon="@drawable/ic_statistic"
         />
 </menu>

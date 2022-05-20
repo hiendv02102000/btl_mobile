@@ -63,8 +63,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ResponseAPI> call, retrofit2.Response<ResponseAPI> response) {
                         ResponseAPI res = response.body();
-                        Log.d("Signin",res+"");
-                        if (res != null&&res.status == 200 ) {
+                       // Log.d("Signin",res+"");
+                        if (res != null&&res.getStatus() == 200 ) {
                             User user = (User) ConverObject.converJsontoObject(res.getResult().getAsJsonObject("login"),User.class);
                             Intent i = new Intent(LoginActivity.this,MainActivity.class);
                             i.putExtra("user",user);

@@ -8,11 +8,11 @@ import java.io.Serializable;
 
 public class ResponseAPI implements Serializable {
     @SerializedName("status")
-    public int status;
+    private int status;
     @SerializedName("result")
-    public JsonObject result;
+    private JsonObject result;
     @SerializedName("error")
-    public JsonElement error;
+    private JsonElement error;
     public ResponseAPI() {
     }
 
