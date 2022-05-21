@@ -29,8 +29,17 @@ public class Song extends BaseModel implements Serializable,Comparable<Song>{
     private String imageUrl;
     @SerializedName("decription")
     private String description;
-
+    @SerializedName("user")
+    private User user;
     public Song() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getId() {

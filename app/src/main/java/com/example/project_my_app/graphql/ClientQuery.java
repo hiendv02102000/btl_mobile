@@ -113,4 +113,28 @@ public class ClientQuery {
                 "        } \n" +
                 "    }\n";
     }
+    public static String getDetailSong(int songId){
+        return "query{\n" +
+                "        get_song_detail(\n" +
+                "                song:{\n" +
+                "                    id:"+songId+"\n" +
+                "                }\n" +
+                "            )\n" +
+                "         {\n" +
+                "             \n" +
+                "                    id\n" +
+                "                    title\n" +
+                "                    content_url\n" +
+                "                    image_url\n" +
+                "                    decription\n" +
+                "                    created_at\n" +
+                "                    user {\n" +
+                "                        username\n" +
+                "                        first_name\n" +
+                "                        last_name\n" +
+                "                        avatar_url\n" +
+                "                    }\n" +
+                "        } \n" +
+                "    }\n";
+    }
 }

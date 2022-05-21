@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.ViewHolder> {
     private Map<Integer, Song> data;
-
+    private SelectItemListener selectItemListener;
     private List<Song> songList;
 
     public MusicListAdapter(Map<Integer, Song> data) {
@@ -49,6 +49,12 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
         if(imgUrl!=null &&!imgUrl.isEmpty()){
             Picasso.get().load(imgUrl).into(holder.img);
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectItemListener.onSelectItem(song.getId());
+            }
+        });
     }
 
     @Override
@@ -78,6 +84,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
         private TextView viewTxt;
         private TextView descriptionTxt;
         private ImageView img;
+        private View viewItem;
         public ViewHolder(View view) {
             super(view);
             singerTxt = view.findViewById(R.id.singer_song);
@@ -85,6 +92,11 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
             viewTxt = view.findViewById(R.id.views_song);
             descriptionTxt = view.findViewById(R.id.description_song);
             img =view.findViewById(R.id.image_song);
+            viewItem =view;
         }
+    }
+
+    public void setSelectItemListener(SelectItemListener selectItemListener) {
+        this.selectItemListener = selectItemListener;
     }
 }

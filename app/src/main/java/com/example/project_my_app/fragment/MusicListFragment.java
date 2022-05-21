@@ -1,5 +1,6 @@
 package com.example.project_my_app.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,8 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.example.project_my_app.PlayMusicActivity;
 import com.example.project_my_app.R;
 import com.example.project_my_app.adapter.MusicListAdapter;
+import com.example.project_my_app.adapter.SelectItemListener;
 import com.example.project_my_app.api.APIInterface;
 import com.example.project_my_app.api.Request;
 import com.example.project_my_app.api.ResponseAPI;
@@ -65,11 +68,21 @@ public class MusicListFragment extends Fragment {
     private  void init(View view){
         data = new HashMap<>();
         musicListAdapter = new MusicListAdapter(data);
-        musicListAdapter.notifyDataChanged();
+        SelectItemListener selectItemListener = new SelectItemListener() {
+            @Override
+            public void onSelectItem(int position) {
+                Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
+                intent.putExtra("token",user.getToken());
+                intent.putExtra("song_id",position);
+                startActivity(intent);
+            }
+        };
+        musicListAdapter.setSelectItemListener(selectItemListener);
         songListRecycle = view.findViewById(R.id.song_list_recycle);
         songListRecycle.setLayoutManager(new LinearLayoutManager(getActivity()));
         songListRecycle.setAdapter(musicListAdapter);
         progressBar = view.findViewById(R.id.load_next);
+
         setRecyleViewListener();
         getSongListApi(null);
     }
