@@ -1,5 +1,6 @@
 package com.example.project_my_app.graphql;
 
+import com.example.project_my_app.model.Comment;
 import com.example.project_my_app.model.Song;
 import com.example.project_my_app.model.User;
 
@@ -128,6 +129,7 @@ public class ClientQuery {
                 "                    image_url\n" +
                 "                    decription\n" +
                 "                    created_at\n" +
+                "                    singer\n" +
                 "                    user {\n" +
                 "                        username\n" +
                 "                        first_name\n" +
@@ -157,5 +159,73 @@ public class ClientQuery {
                 "        } \n" +
                 "    }\n";
     }
-
+    public  static String updateSongMutation(Song song){
+        return "mutation{\n" +
+                "        update_song(\n" +
+                "                song:{\n" +
+                "                    id:"+song.getId()+"\n" +
+                "                   title: \""+song.getTitle()+"\"\n" +
+                "                   decription: \""+song.getDescription()+"\"\n" +
+                "                    singer:\""+song.getSinger()+"\"\n" +
+                "                }\n" +
+                "            )\n" +
+                "         {\n" +
+                "           id\n" +
+                "           title\n" +
+                "           content_url\n" +
+                "           image_url\n" +
+                "           decription\n" +
+                "           updated_at\n" +
+                "        } \n" +
+                "    }\n";
+    }
+    public static String deleteSongMutation(int songId){
+        return "mutation{\n" +
+                "        delete_song(\n" +
+                "                song:{\n" +
+                "                    id:"+songId+"\n" +
+                "                }\n" +
+                "            )\n" +
+                "         {\n" +
+                "           id\n" +
+                "        } \n" +
+                "   }\n";
+    }
+    public static String getCommentSongQuery(int songId){
+        return "query{\n" +
+                "        get_comment_song(\n" +
+                "                song:{\n" +
+                "                    id:"+songId +"\n" +
+                "                }\n" +
+                "                page:{\n" +
+                "                    page_num:1\n" +
+                "                    page_size:100\n" +
+                "                }\n" +
+                "            )\n" +
+                "         {\n" +
+                "            comments{\n" +
+                "                id \n" +
+                "                content\n" +
+                "                user{\n" +
+                "                    username\n" +
+                "                }\n" +
+                "            }\n" +
+                "        } \n" +
+                "    }\n";
+    }
+    public  static String createCmtApiMutation(Comment cmt,int songId){
+        return "mutation{\n" +
+                "       create_comment(\n" +
+                "                comment:{\n" +
+                "                    song_id:"+songId+"\n" +
+                "                    content: \""+cmt.getContent()+"\"\n" +
+                "                }\n" +
+                "            )\n" +
+                "         {\n" +
+                "             id\n" +
+                "             content\n" +
+                "             song_id\n" +
+                "        } \n" +
+                "    }\n";
+    }
 }

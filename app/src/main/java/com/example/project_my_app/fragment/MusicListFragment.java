@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 
 import com.example.project_my_app.PlayMusicActivity;
 import com.example.project_my_app.R;
@@ -31,7 +32,10 @@ import com.example.project_my_app.utils.ConverObject;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -50,7 +54,7 @@ public class MusicListFragment extends Fragment {
     public MusicListFragment(User user) {
         this.user = user;
     }
-
+    private RadioButton titleCheck;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,9 +86,30 @@ public class MusicListFragment extends Fragment {
         songListRecycle.setLayoutManager(new LinearLayoutManager(getActivity()));
         songListRecycle.setAdapter(musicListAdapter);
         progressBar = view.findViewById(R.id.load_next);
+        songViewSearch = view.findViewById(R.id.song_search);
+        titleCheck = view.findViewById(R.id.title_radio);
+        songViewSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+             data.clear();
+             pageNum=0;
+             getSongListApi();
+                return true;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                int type =1;
+                if(titleCheck.isChecked())
+                    type = 0;
+
+                musicListAdapter.setSongList(filter(newText,type));
+               // musicListAdapter.filter(newText,type);
+                return true;
+            }
+        });
         setRecyleViewListener();
-        getSongListApi(null);
+        getSongListApi();
     }
     private void setRecyleViewListener(){
         songListRecycle.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -92,11 +117,14 @@ public class MusicListFragment extends Fragment {
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 progressBar.setVisibility(View.VISIBLE);
-                getSongListApi(null);
+                getSongListApi();
             }
         });
     }
-    private synchronized void getSongListApi(Song song) {
+    private synchronized void getSongListApi() {
+        Song song = new Song();
+        if(titleCheck.isChecked()) song.setTitle(songViewSearch.getQuery().toString());
+        else  song.setDescription(songViewSearch.getQuery().toString());
         APIInterface.retrofit.clientQueryAPI(new Request(ClientQuery.getMusicList(song,pageNum+1,pageSize)),"Bearer "+this.user.getToken())
                 .enqueue(new Callback<ResponseAPI>() {
                     @Override
@@ -124,5 +152,23 @@ public class MusicListFragment extends Fragment {
                     }
 
                 });
+    }
+    private List<Song> filter(String condition ,int type){
+        condition = condition.toLowerCase();
+        List<Song> songListN = new ArrayList<>();
+        for (Map.Entry<Integer, Song> entry : data.entrySet()) {
+            Song eSong = entry.getValue();
+            if(type == 0 ){
+                if(eSong.getTitle().toLowerCase().contains(condition)){
+                    songListN.add(eSong);
+                }
+            }else {
+                if(eSong.getSinger().toLowerCase().contains(condition)){
+                    songListN.add(eSong);
+                }
+            }
+        }
+        //Log.d("VVVVVVVV", "filter: "+songListN.size());
+        return  songListN;
     }
 }

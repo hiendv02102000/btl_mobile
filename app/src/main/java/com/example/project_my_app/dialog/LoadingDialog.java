@@ -13,9 +13,9 @@ public class LoadingDialog {
     private Activity activity;
     private AlertDialog alertDialog;
 
-    public LoadingDialog(Activity myactivity)
+    public LoadingDialog(Activity myActivity)
     {
-        activity= myactivity;
+        activity= myActivity;
     }
 
     public void startLoadingDialog()

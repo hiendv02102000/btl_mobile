@@ -12,8 +12,25 @@
         android:id="@+id/song_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_200"/>
-
+        android:background="@color/purple_200"
+        android:queryHint="Tìm kiếm"
+        />
+<RadioGroup
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <RadioButton
+        android:id="@+id/title_radio"
+        android:checked="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tìm theo tên bài hát"
+        android:layout_marginRight="10dp"/>
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tìm theo tên bài hát"/>
+</RadioGroup>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

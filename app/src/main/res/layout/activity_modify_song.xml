@@ -12,7 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"> // Only works inside a RelativeLayout
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/avatar_img"
+                android:id="@+id/music_img"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:src="@mipmap/default_avt" />
@@ -21,14 +21,17 @@
                 android:id="@+id/btn_upload_image_file"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/avatar_img"
-                android:layout_alignRight="@+id/avatar_img"
-                android:layout_alignBottom="@+id/avatar_img"
-                android:layout_margin="1dp"
+                android:layout_alignLeft="@+id/music_img"
+                android:layout_alignRight="@+id/music_img"
+                android:layout_alignBottom="@+id/music_img"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/gray_bg"
                 android:gravity="center"
                 android:text="Chọn ảnh bài hát"
-                android:textColor="#000000"
-                android:background="@drawable/gray_bg"/>
+                android:textColor="#000000" />
         </RelativeLayout>
         <TextView
             android:id="@+id/music_file_status"
@@ -47,7 +50,7 @@
             android:layout_marginTop="10dp"
             >
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_title_song_add"
+                android:id="@+id/text_title_song_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -62,7 +65,7 @@
             android:hint="Ca sĩ"
             >
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_title_singer_add"
+                android:id="@+id/text_title_singer_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -76,7 +79,7 @@
             android:hint="Mô tả"
             >
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_title_description_add"
+                android:id="@+id/text_title_description_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

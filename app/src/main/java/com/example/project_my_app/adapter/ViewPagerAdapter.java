@@ -29,8 +29,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new MusicListFragment(user);
             case 1:
-                return new HistoryFragment(user);
-            case 2:
                 return new ProfileFragment(user);
         }
         return new MusicListFragment(user);

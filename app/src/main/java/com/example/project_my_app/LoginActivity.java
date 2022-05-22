@@ -17,6 +17,7 @@ import com.example.project_my_app.api.ResponseAPI;
 import com.example.project_my_app.dialog.LoadingDialog;
 import com.example.project_my_app.graphql.Query;
 import com.example.project_my_app.model.User;
+import com.example.project_my_app.sqlite.SQLiteUser;
 import com.example.project_my_app.utils.ConverObject;
 
 import retrofit2.Call;
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
     private Button btnLogin , btnRegister;
     private LoadingDialog loadingDialog = new LoadingDialog(this);
+    private SQLiteUser db = new SQLiteUser(LoginActivity.this);
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -36,6 +38,12 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnRegister = (Button) findViewById(R.id.register);
+        User user = db.getLast();
+        if(user!= null ){
+            username.setText(user.getUsername());
+            password.setText(user.getPassword());
+        }
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +73,17 @@ public class LoginActivity extends AppCompatActivity {
                         ResponseAPI res = response.body();
                        // Log.d("Signin",res+"");
                         if (res != null&&res.getStatus() == 200 ) {
+                            User userd = db.getLast();
+                            if(userd!= null ){
+                                if( !userd.getUsername().equals(u.getUsername() )|| !userd.getPassword().equals(u.getPassword())){
+                                    db.addUser(u);
+                                }
+                            }else {
+                                db.addUser(u);
+                            }
+
+
+
                             User user = (User) ConverObject.converJsontoObject(res.getResult().getAsJsonObject("login"),User.class);
                             Intent i = new Intent(LoginActivity.this,MainActivity.class);
                             i.putExtra("user",user);

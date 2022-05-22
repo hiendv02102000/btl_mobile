@@ -60,7 +60,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     @Override
     public int getItemCount() {
         if(songList !=null) {
-            return data.size();
+            return songList.size();
         }
         return 0;
     }
@@ -78,6 +78,12 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
         Collections.sort(songList);
         this.notifyDataSetChanged();
     }
+
+    public void setSongList(List<Song> songListN) {
+        this.songList = songListN;
+        this.notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView singerTxt;
         private TextView titleTxt;

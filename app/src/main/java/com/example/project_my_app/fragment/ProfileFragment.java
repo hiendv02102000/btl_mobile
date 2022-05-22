@@ -182,8 +182,9 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onResponse(Call<ResponseAPI> call, retrofit2.Response<ResponseAPI> response) {
                         ResponseAPI res = response.body();
-                        Log.d("TAG", "onResponse: "+res);
+
                         if(res != null && res.getStatus()==200){
+                            data.clear();
                             JsonArray jsonArray = res.getResult().getAsJsonObject("get_song_list").getAsJsonArray("songs");
                             for(JsonElement jsonElement : jsonArray){
                                 Song songElement = (Song)ConverObject.converJsontoObject(jsonElement.getAsJsonObject(),Song.class);
