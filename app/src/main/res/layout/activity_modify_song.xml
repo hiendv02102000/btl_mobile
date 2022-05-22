@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"> // Only works inside a RelativeLayout
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatar_img"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@mipmap/default_avt" />
+
+            <TextView
+                android:id="@+id/btn_upload_image_file"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/avatar_img"
+                android:layout_alignRight="@+id/avatar_img"
+                android:layout_alignBottom="@+id/avatar_img"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:text="Chọn ảnh bài hát"
+                android:textColor="#000000"
+                android:background="@drawable/gray_bg"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/music_file_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chưa tải file nhạc mới"
+            android:textSize="20dp"/>
+        <Button
+            android:id="@+id/btn_upload_music_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tải file nhạc"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_title_song_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="20dp"
+                android:hint="Tên bài hát"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Ca sĩ"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_title_singer_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Mô tả"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_title_description_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:maxLines="10"
+                android:minLines="6"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btn_modify_song"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sửa bài hát"
+                android:textAllCaps="false"
+                android:textSize="20dp"
+                android:layout_marginTop="15dp"
+                app:backgroundTint="@null"
+                android:background="@drawable/btn_custom"
+                android:layout_marginRight="20dp"
+                />
+            <Button
+                android:id="@+id/btn_delete_song"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xoá bài hát"
+                android:textAllCaps="false"
+                android:textSize="20dp"
+                android:layout_marginTop="15dp"
+                app:backgroundTint="@null"
+                android:background="@drawable/btn_custom"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

@@ -106,6 +106,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,AddSongActivity.class);
+                intent.putExtra("token",user.getToken());
+                startActivity(intent);
+            }
+        });
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -137,4 +137,25 @@ public class ClientQuery {
                 "        } \n" +
                 "    }\n";
     }
+    public  static String createSongMutation(Song song){
+        return "mutation{\n" +
+                "        create_song(\n" +
+                "                song:{\n" +
+                "                   title: \""+song.getTitle()+"\"\n" +
+                "                   decription: \""+song.getDescription()+"\"\n" +
+                "                    singer:\""+song.getSinger()+"\"\n" +
+                "                }\n" +
+                "            )\n" +
+                "         {\n" +
+                "           id\n" +
+                "           title\n" +
+                "           content_url\n" +
+                "           image_url\n" +
+                "           decription\n" +
+                "           created_at\n" +
+                "           singer\n" +
+                "        } \n" +
+                "    }\n";
+    }
+
 }

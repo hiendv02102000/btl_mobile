@@ -112,9 +112,7 @@ public class ModifyProfileActivity extends AppCompatActivity implements View.OnC
         updateProfileWithData();
     }
     private void changeProfileApi(){
-
                 MultipartBody.Part reqMultipartBodyImg=null;
-
                 if(imgURI != null ){
                     File file = new File(RealPathUtil.getRealPath(ModifyProfileActivity.this,imgURI));
                     RequestBody requestBodyImg = RequestBody.create(MediaType.parse("multipart/form-data"),file);

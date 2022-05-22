@@ -20,8 +20,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.project_my_app.ModifyProfileActivity;
+import com.example.project_my_app.ModifySongActivity;
+import com.example.project_my_app.PlayMusicActivity;
 import com.example.project_my_app.R;
 import com.example.project_my_app.adapter.MusicListAdapter;
+import com.example.project_my_app.adapter.SelectItemListener;
 import com.example.project_my_app.api.APIInterface;
 import com.example.project_my_app.api.Request;
 import com.example.project_my_app.api.ResponseAPI;
@@ -78,7 +81,18 @@ public class ProfileFragment extends Fragment {
         swipeRefreshLayout = view.findViewById(R.id.refresh_profile_layout);
 
         data = new HashMap<>();
+
         musicListAdapter = new MusicListAdapter(data);
+        SelectItemListener selectItemListener = new SelectItemListener() {
+            @Override
+            public void onSelectItem(int id) {
+                Intent intent = new Intent(getActivity(), ModifySongActivity.class);
+                intent.putExtra("token",user.getToken());
+                intent.putExtra("song_id",id);
+                startActivity(intent);
+            }
+        };
+        musicListAdapter.setSelectItemListener(selectItemListener);
         songListRecycle = view.findViewById(R.id.profile_song_list);
         songListRecycle.setLayoutManager(new LinearLayoutManager(getActivity()));
         songListRecycle.setAdapter(musicListAdapter);
@@ -178,10 +192,12 @@ public class ProfileFragment extends Fragment {
                             musicListAdapter.notifyDataChanged();
                         }else {
                         }
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                     @Override
                     public void onFailure(Call<ResponseAPI> call, Throwable t) {
                         call.cancel();
+                        swipeRefreshLayout.setRefreshing(false);
                     }
 
                 });

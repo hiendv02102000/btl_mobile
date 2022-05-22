@@ -17,6 +17,12 @@
         android:theme="@style/Theme.Projectmyapp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ModifySongActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddSongActivity"
+            android:exported="false" />
+        <activity
             android:name=".ModifyProfileActivity"
             android:exported="false" />
         <activity
